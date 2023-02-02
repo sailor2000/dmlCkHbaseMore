@@ -1,0 +1,61 @@
+# localhost
+ @IP=localhost:9001
+
+
+### 通过用户编码获取用户信息
+# 入参说明:
+# id 用户编码
+GET http://{{IP}}//ckDmlApi/getUserInfoById?id=1
+
+
+### 分页查询用户信息
+# 入参说明:
+# userName 用户名称
+# phone
+# email
+POST  http://{{IP}}/ckDmlApi/getUserInfoLimitPage
+Content-Type: application/json
+
+{
+  "userName":"张三",
+  "email":"326427540@qq.com"
+}
+
+### insert
+# 入参说明:
+# userName 用户名称
+# passWord
+# phone
+# email
+POST  http://{{IP}}/ckDmlApi/insertUserInfo
+Content-Type: application/json
+
+{
+  "userName":"张三",
+  "passWord":"111222333",
+  "phone": "18899999999",
+  "email":"326427540@qq.com"
+}
+
+
+### 通过用户编码删除用户信息
+# 入参说明:
+# id 用户编码
+GET http://{{IP}}//ckDmlApi/deleteUserById?id=1613894323136561154
+
+### update
+# 入参说明:
+# userName 用户名称
+# passWord
+# phone
+# email
+POST  http://{{IP}}/ckDmlApi/updateUserInfo
+Content-Type: application/json
+
+{
+  "id":"888",
+  "userName":"改名",
+  "passWord":"111222333",
+  "phone": "18899999999",
+  "email":"326427540@qq.com"
+}

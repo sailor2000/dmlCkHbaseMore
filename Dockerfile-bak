@@ -1,0 +1,15 @@
+FROM docker.io/fabric8/java-jboss-openjdk8-jdk:latest
+
+USER root
+ARG ZIP_FILE
+ADD ${ZIP_FILE} /deployments/demo/
+ENV JAVA_APP_DIR=/deployments/demo
+
+#设置时区
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone && \
+    chown -R jboss:root /deployments/aistation
+
+USER jboss
+WORKDIR /deployments
+CMD [ "/deployments/run-java.sh" ]

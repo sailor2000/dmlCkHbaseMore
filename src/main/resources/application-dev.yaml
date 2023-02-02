@@ -1,0 +1,20 @@
+spring:
+  profiles: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    click:
+      driverClassName: ru.yandex.clickhouse.ClickHouseDriver
+      url: jdbc:clickhouse://192.168.136.100:8123/default
+      address: jdbc:clickhouse://192.168.136.100:8123
+      db: default
+      username: default
+      password: 123456
+      initialSize: 10
+      maxActive: 100
+      minIdle: 10
+      maxWait: 6000
+      socketTimeout: 600000
+  zookeeper:
+    property:
+      quorum: 192.168.136.100
+      clPort: 2181

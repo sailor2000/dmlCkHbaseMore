@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-clickjava
+  namespace: ns-sstj
+  labels:
+    app: clickjava
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: clickjava
+  template:
+    metadata:
+      labels:
+        app: clickjava
+      namespace: ns-sstj
+    spec:
+      containers:
+        - name: clickjava
+          image: 192.168.136.102:80/sstj/clickjava:v1
+          imagePullPolicy: IfNotPresent
+      imagePullSecrets:
+        - name: harbor-100-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-clickjava
+  namespace: ns-sstj
+spec:
+  type: NodePort
+  ports:
+    - name: apidml
+      port: 9002
+      targetPort: 9001
+      nodePort: 30091
+  selector:
+    app: clickjava
+

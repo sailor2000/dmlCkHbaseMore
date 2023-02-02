@@ -1,0 +1,102 @@
+# localhost
+ @IP=localhost:9001
+
+
+### 创建hbase命名空间
+# 入参说明:
+# ns 命名空间
+GET http://{{IP}}//hbaseDmlApi/createNamespace?ns=ns-sstj
+
+### 写入hbase表数据
+# 入参说明:
+# reqMap : Map<String,Map<String,String>>
+POST  http://{{IP}}/hbaseDmlApi/putData
+Content-Type: application/json
+
+{
+  "tbname":"test",
+  "colFamily":"info",
+  "rowKey":"2",
+  "data":
+  [{
+    "key1": "k1",
+    "value1":"v1"
+  },
+  {
+    "key2": "k2",
+    "value2":"v2"
+  }]
+}
+
+
+### 查询全表数据
+# 入参说明:
+# tbname 表名
+##出参 : List<List<Map>>
+# [
+#   [
+#     {
+#       "colFamily": "info",
+#       "qualifier": "2",
+#       "value": "b"
+#     },
+#     {
+#       "colFamily": "info",
+#       "qualifier": "1",
+#       "value": "a"
+#     }
+#   ],
+#   [
+#     {
+#       "colFamily": "info",
+#       "qualifier": "4",
+#       "value": "b"
+#     },
+#     {
+#       "colFamily": "info",
+#       "qualifier": "3",
+#       "value": "a"
+#     }
+#   ],
+#   [
+#     {
+#       "colFamily": "info",
+#       "qualifier": "44",
+#       "value": "b"
+#     },
+#     {
+#       "colFamily": "info",
+#       "qualifier": "33",
+#       "value": "a"
+#     }
+#   ]
+# ]
+GET http://{{IP}}//hbaseDmlApi/getDataByTb?tbname=test
+
+
+### 根据表名和rowKey查询数据
+# 入参说明:
+# tbname 表名
+#rowKey
+##出参 : List
+#[
+#  {
+#    "colFamily": "info",
+#    "qualifier": "33",
+#    "value": "a"
+#  },
+#  {
+#    "colFamily": "info",
+#    "qualifier": "44",
+#    "value": "b"
+#  }
+#]
+GET http://{{IP}}//hbaseDmlApi/getDataByTbRowkey?tbname=test&rowKey=2
+
+
+### 根据表名和rowKey删除数据
+# 入参说明:
+# tbname 表名
+#rowKey
+##出参 : List
+GET http://{{IP}}//hbaseDmlApi/deleteDataByRowKey?tbname=test&rowKey=2
